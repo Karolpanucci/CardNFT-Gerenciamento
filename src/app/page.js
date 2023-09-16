@@ -10,7 +10,7 @@ export default function Home() {
     <div className=" bg-slate-900  flex min-h-screen flex-col items-center justify-between p-24 ">
             
 
-            <main className="grid grid-cols-4 ml-7 mr-7 gap-4 mt-8 ">
+            <main className="grid grid-cols-4 ml-7 mr-7 gap-4 mt-8 " >
           {filmes.map((filme) => (
             <div
               key={filme.codigo}
