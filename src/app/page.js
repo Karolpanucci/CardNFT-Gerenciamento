@@ -1,4 +1,6 @@
+'use client'
 import { getFilme } from "@/app/filme";
+import { useState } from "react";
 import { Eye, Gem } from 'lucide-react';
 import Image from 'next/image'
 import { UserCircle, ShoppingCart, PlusCircle, Candy, Instagram, Twitch, CreditCard, CircleDollarSign } from 'lucide-react';
@@ -6,18 +8,23 @@ import Link from 'next/link';
 
 export default function Home() {
   const filmes = getFilme();
+  const [menuOpen, setMenuOpen] = useState(false); // Initialize state for the mobile menu
+
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen); // Toggle the menu state
+  };
   return (
     <div className="bg-slate-800 min-h-screen items-center justify-between">
     <header className="w-full bg-zinc-950">
       <div className="flex w-full h-28 items-center">
         <img
-          className='mt-0 ml-4 sm:ml-10' // Adjust margin for small screens
+          className='mt-0 ml-4 sm:ml-10'
           src="/logo.png"
           width={100}
           height={100}
           alt="Picture of the author"
         />
-        <div class="flex items-center ml-4 sm:ml-16"> {/* Adjust margin for small screens */}
+        <div className="flex items-center ml-4 sm:ml-16">
           <div className="flex text-white">
             <p className="mt-3 sm:mt-0 ml-4 sm:ml-20 flex"> Lancamentos </p>
           </div>
@@ -28,11 +35,38 @@ export default function Home() {
             <p className="mt-3 sm:mt-0 ml-4 sm:ml-20 flex"> Categorias </p>
           </div>
         </div>
-        <div class="flex font-bold text-cyan-500 p-5 mt-3 ml-auto mr-4"> {/* Adjust margin for small screens */}
+        <div className="flex font-bold text-cyan-500 p-5 mt-3 ml-auto mr-4">
           <UserCircle /> ENTRAR
         </div>
+        <button className="sm:hidden ml-4" onClick={toggleMenu}>
+          {/* Use a button to toggle the mobile menu */}
+          <svg
+            className="w-6 h-6 text-white cursor-pointer"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          </svg>
+        </button>
       </div>
+      {/* Conditionally render the mobile menu based on menuOpen state */}
+      {menuOpen && (
+        <div className="sm:hidden bg-zinc-950 p-4">
+          {/* Mobile menu content */}
+          <p className="text-white">Menu Item 1</p>
+          <p className="text-white">Menu Item 2</p>
+          <p className="text-white">Menu Item 3</p>
+        </div>
+      )}
     </header>
+
       <main className="grid grid-cols-1 md:grid-cols-4 ml-7 mr-7 gap-4 mt-8 ">
         {filmes.map((filme) => (
           <div
